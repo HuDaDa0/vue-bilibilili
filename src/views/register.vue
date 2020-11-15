@@ -1,6 +1,10 @@
 <template>
   <div>
-    <login-top title="注册bilibilili"></login-top>
+    <login-top title="注册bilibilili">
+      <template v-slot:right>
+        <span @click="$router.push('/login')">切换到登录</span>
+      </template>
+    </login-top>
     <van-form @submit="onSubmit">
       <van-field
         v-model="form.username"
@@ -19,6 +23,7 @@
       ></van-field>
       <van-field
         v-model="form.password"
+        type="password"
         name="密码"
         label="密码"
         placeholder="请输入密码"
@@ -57,8 +62,19 @@ export default {
     }
   },
   methods: {
-    onSubmit (value) {
-      console.log(value)
+    async onSubmit () {
+      const res = await this.$http.post('/register', {
+        name: this.form.username,
+        username: this.form.account,
+        password: this.form.password
+      })
+      if (res.code === 301 || res.code === 302) {
+        this.$msg.fail(res.msg)
+        return false
+      }
+      setTimeout(_ => {
+        this.$router.push('/login')
+      }, 1000)
     }
   }
 }

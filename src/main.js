@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import Vant from 'vant'
+import Vant, { Toast } from 'vant'
 import 'vant/lib/index.css'
+import http from './http.js'
 
 Vue.use(Vant)
+Vue.prototype.$http = http
+Vue.prototype.$msg = Toast
 Vue.config.productionTip = false
 
 new Vue({
