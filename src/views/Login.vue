@@ -15,6 +15,7 @@
       ></van-field>
       <van-field
         v-model="form.password"
+        type="password"
         name="密码"
         label="密码"
         placeholder="请输入密码"
