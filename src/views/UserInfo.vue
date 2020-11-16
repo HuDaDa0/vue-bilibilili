@@ -25,16 +25,11 @@ export default {
   },
   created () {
     this.id = localStorage.getItem('id') || ''
-    this.token = localStorage.getItem('token') || ''
     this.getUserInfo()
   },
   methods: {
     async getUserInfo () {
-      const res = await this.$http.get(`/user/${this.id}`, {
-        headers: {
-          Authorization: 'Bearer ' + this.token
-        }
-      })
+      const res = await this.$http.get(`/user/${this.id}`)
       this.model = res[0]
     }
   }

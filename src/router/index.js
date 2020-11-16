@@ -20,7 +20,10 @@ const routes = [
   {
     path: '/userinfo',
     name: 'userinfo',
-    component: UserInfo
+    component: UserInfo,
+    meta: {
+      isToken: true
+    }
   }
 ]
 
@@ -28,6 +31,15 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.isToken && (!localStorage.getItem('id') || !localStorage.getItem('token'))) {
+    router.push('/login')
+    Vue.prototype.$msg.fail('请先登录')
+    return
+  }
+  next()
 })
 
 export default router

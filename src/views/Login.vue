@@ -50,8 +50,12 @@ export default {
         this.$msg.fail(res.msg)
         return false
       }
+      this.$msg.success(res.msg)
       localStorage.setItem('token', res.token)
       localStorage.setItem('id', res.id)
+      setTimeout(_ => {
+        this.$router.push('/userinfo')
+      })
     }
   }
 }
