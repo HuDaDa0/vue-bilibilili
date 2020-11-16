@@ -2,7 +2,7 @@
   <div>
     <nav-bar></nav-bar>
     <div class="img-banner"></div>
-    <user-detail></user-detail>
+    <user-detail :userInfo="model"></user-detail>
   </div>
 </template>
 
@@ -15,6 +15,28 @@ export default {
   components: {
     NavBar,
     UserDetail
+  },
+  data () {
+    return {
+      id: '',
+      token: '',
+      model: {}
+    }
+  },
+  created () {
+    this.id = localStorage.getItem('id') || ''
+    this.token = localStorage.getItem('token') || ''
+    this.getUserInfo()
+  },
+  methods: {
+    async getUserInfo () {
+      const res = await this.$http.get(`/user/${this.id}`, {
+        headers: {
+          Authorization: 'Bearer ' + this.token
+        }
+      })
+      this.model = res[0]
+    }
   }
 }
 </script>

@@ -2,7 +2,8 @@
   <div>
     <div class="part1">
       <div class="face">
-        <img src="@/assets/head_img.jpg" alt="">
+        <img v-if="userInfo.user_img" :src="userInfo.user_img" alt="">
+        <img v-else src="@/assets/head_img.jpg" alt="">
       </div>
       <div class="relation">
         <div class="count">
@@ -29,12 +30,13 @@
     </div>
     <div class="part2">
       <div class="base">
-        <span class="name">哈哈哈哈</span>
+        <span class="name">{{ userInfo.username }}</span>
         <span class="gender"></span>
         <span class="level"></span>
       </div>
       <div class="desc">
-        <span class="content">我相信梦能到达的地方，总有一天脚步也会到达</span>
+        <span v-if="userInfo.user_desc" class="content">{{ userInfo.user_desc }}</span>
+        <span v-else>这个人很神秘，什么都没有留下</span>
         <span class="spread-btn">展开</span>
       </div>
     </div>
@@ -47,7 +49,13 @@
 
 <script>
 export default {
-  name: 'UserDetail'
+  name: 'UserDetail',
+  props: {
+    userInfo: {
+      type: Object,
+      default: () => {}
+    }
+  }
 }
 </script>
 
