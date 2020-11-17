@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :class="['edit-group', {'edit-leave': showLeave}]">
     <nav-bar></nav-bar>
     <edit-banner left="头像" class="edit-avater">
       <van-uploader :after-read="afterRead" class="upload-box" />
@@ -12,7 +12,7 @@
     <edit-banner left="个性签名" @show="showSignature = true">{{ model.user_desc || '这个用户很神秘，什么都没有留下' }}</edit-banner>
     <div class="op-card">
       <div>退出登录</div>
-      <div @click="$router.go(-1)">返回空间</div>
+      <div @click="$router.go(-1);">返回空间</div>
     </div>
 
     <!-- 修改昵称 -->
@@ -23,7 +23,6 @@
     <van-dialog v-model="showSignature" title="个性签名" show-cancel-button @confirm="confirmSignature">
       <van-field v-model="user_desc" type="textarea" autofocus placeholder="请输入个性签名" />
     </van-dialog>
-
     <van-action-sheet v-model="showGender" :actions="actions" @select="onSelect" />
   </div>
 </template>
@@ -54,7 +53,8 @@ export default {
       actions: [
         { name: '男', val: 1 },
         { name: '女', val: 0 }
-      ]
+      ],
+      showLeave: false
     }
   },
   created () {
@@ -98,6 +98,30 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.edit-group {
+  position: absolute;
+  width: 100vw;
+  animation: move .5s;
+}
+@keyframes move {
+  0% {
+    left: 100vw;
+  }
+  100% {
+    left: 0vw;
+  }
+}
+.edit-leave {
+  animation: leave .5s;
+}
+@keyframes leave {
+  0% {
+    left: 0vw;
+  }
+  100% {
+    left: 100vw;
+  }
+}
 .edit-avater {
   position: relative;
   margin-top: 3.2vw;
