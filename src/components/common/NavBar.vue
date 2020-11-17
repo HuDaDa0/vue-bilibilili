@@ -7,9 +7,10 @@
       <a href="#" class="search">
         <van-icon name="search" color="#999" style="font-size: 6.667vw;" />
       </a>
-      <a href="" class="user-logo">
-        <img src="@/assets/default_img.jpg" class="bfs-img">
-      </a>
+      <p href="#" @click="$router.push('/userinfo')" class="user-logo">
+        <img v-if="user_img" :src="user_img" class="bfs-img">
+        <img v-else src="@/assets/default_img.jpg" class="bfs-img">
+      </p>
       <div class="open-app-btn">下载 App</div>
     </div>
   </div>
@@ -17,7 +18,16 @@
 
 <script>
 export default {
-  name: 'NavBar'
+  name: 'NavBar',
+  data () {
+    return {
+      user_img: ''
+    }
+  },
+  async created () {
+    const res = await this.$http.get(`/user/${localStorage.getItem('id')}`)
+    this.user_img = res[0].user_img
+  }
 }
 </script>
 
@@ -50,6 +60,7 @@ export default {
       .bfs-img {
         width: 100%;
         height: 100%;
+        border-radius: 50%;
       }
     }
     .open-app-btn {
