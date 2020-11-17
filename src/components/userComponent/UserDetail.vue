@@ -25,7 +25,7 @@
             <span class="type">获赞</span>
           </span>
         </div>
-        <div class="follow-btn">编辑资料</div>
+        <div class="follow-btn" @click="$router.push('/edit')">编辑资料</div>
       </div>
     </div>
     <div class="part2">

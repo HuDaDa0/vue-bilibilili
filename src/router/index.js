@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import UserInfo from '../views/UserInfo.vue'
+import Edit from '../views/Edit.vue'
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,11 @@ const routes = [
     meta: {
       isToken: true
     }
+  },
+  {
+    path: '/edit',
+    name: 'edit',
+    component: Edit
   }
 ]
 
