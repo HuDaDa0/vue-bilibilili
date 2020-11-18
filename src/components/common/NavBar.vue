@@ -1,16 +1,16 @@
 <template>
   <div class="nav-bar-box">
-    <a href="/" class="logo">
+    <div @click="$router.push('/')" class="logo">
       <img src="@/assets/logo.png" style="height: 100%;">
-    </a>
+    </div>
     <div class="right">
-      <a href="#" class="search">
-        <van-icon name="search" color="#999" style="font-size: 6.667vw;" />
-      </a>
-      <p href="#" @click="$router.push('/userinfo')" class="user-logo">
+      <div class="search">
+        <van-icon v-if="user_img" name="search" color="#999" style="font-size: 6.667vw;" />
+      </div>
+      <div @click="$router.push('/userinfo')" class="user-logo">
         <img v-if="user_img" :src="user_img" class="bfs-img">
-        <img v-else src="@/assets/default_img.jpg" class="bfs-img">
-      </p>
+        <img src="@/assets/default_img.jpg" class="bfs-img">
+      </div>
       <div class="open-app-btn">下载 App</div>
     </div>
   </div>
@@ -41,13 +41,13 @@ export default {
   justify-content: space-between;
   align-items: center;
   .logo {
-    display: inline-block;
+    display: block;
     height: 100%;
   }
   .right {
     display: flex;
     .search {
-      display: inline-block;
+      display: block;
       width: 6.4vw;
       height: 6.4vw;
       margin-right: 6vw;
@@ -55,8 +55,10 @@ export default {
     .user-logo {
       width: 6.4vw;
       height: 6.4vw;
-      display: inline-block;
+      display: block;
       margin-right: 6vw;
+      border-radius: 50%;
+      overflow: hidden;
       .bfs-img {
         width: 100%;
         height: 100%;

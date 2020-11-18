@@ -4,10 +4,16 @@ import Register from '../views/Register.vue'
 import Login from '../views/Login.vue'
 import UserInfo from '../views/UserInfo.vue'
 import Edit from '../views/Edit.vue'
+import Home from '../views/Home.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: Home
+  },
   {
     path: '/register',
     name: 'register',
