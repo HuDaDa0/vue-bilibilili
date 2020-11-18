@@ -32,7 +32,6 @@ export default {
   .card-pic {
     position: relative;
     width: 100%;
-    // height: 64%;
     img {
       width: 100%;
       height: 100%;
@@ -56,11 +55,5 @@ export default {
     padding: 1.33333vw 1.6vw;
     color: red;
   }
-}
-.card-box:first-child {
-  background-color: pink;
-}
-.card-box:nth-child(2) {
-  background-color: yellow;
 }
 </style>
