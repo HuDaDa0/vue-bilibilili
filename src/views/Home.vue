@@ -3,9 +3,17 @@
     <nav-bar></nav-bar>
     <van-tabs v-model="active">
       <van-tab v-for="item of category" :title="item.title" :key="item._id" swipeable>
-        <div class="card-group">
-          <cover v-for="categoryItem of item.list" :key="categoryItem.id" :detailItem="categoryItem"></cover>
-        </div>
+        <van-list
+          v-model="item.loading"
+          :finished="item.finished"
+          :immediate-check="false"
+          finished-text="没有更多了"
+          @load="onLoad"
+        >
+          <div class="card-group">
+            <cover v-for="categoryItem of item.list" :key="categoryItem.id" :detailItem="categoryItem"></cover>
+          </div>
+        </van-list>
       </van-tab>
     </van-tabs>
   </div>
@@ -42,6 +50,8 @@ export default {
         item.list = []
         item.page = 0
         item.pagesize = 8
+        item.loading = false
+        item.finished = false
         return item
       })
       this.selectDetail()
@@ -54,7 +64,14 @@ export default {
           pagesize: item.pagesize
         }
       })
-      this.category[this.active].list = res
+      item.loading = false
+      this.category[this.active].list.push(...res)
+      if (res.length < item.pagesize) item.finished = true
+    },
+    onLoad () {
+      const category = this.category[this.active]
+      category.page += 1
+      this.selectDetail()
     }
   }
 
