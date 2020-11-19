@@ -1,8 +1,8 @@
 <template>
   <div>
     <nav-bar></nav-bar>
-    <van-tabs v-model="active">
-      <van-tab v-for="item of category" :title="item.title" :key="item._id" swipeable>
+    <van-tabs v-model="active" swipeable sticky animated>
+      <van-tab v-for="item of category" :title="item.title" :key="item._id">
         <van-list
           v-model="item.loading"
           :finished="item.finished"
