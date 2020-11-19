@@ -3,8 +3,14 @@
     <div class="card-pic">
       <img :src="detailItem.img" alt="">
       <div class="count">
-        <span>43</span>
-        <span>45</span>
+        <span>
+          <span class="icon-play2"></span>
+          43
+        </span>
+        <span>
+          <span class="icon-file-text"></span>
+          45
+        </span>
       </div>
     </div>
     <p class="card-title">{{ detailItem.name }}</p>

@@ -4,6 +4,7 @@ import router from './router'
 import Vant, { Toast } from 'vant'
 import 'vant/lib/index.css'
 import http from './http.js'
+import '@/assets/style.css'
 
 Vue.use(Vant)
 Vue.prototype.$http = http
