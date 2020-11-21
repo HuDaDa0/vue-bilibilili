@@ -1,5 +1,5 @@
 <template>
-  <div class="card-box">
+  <div @click="$router.push(`/article/${detailItem.id}`)" class="card-box">
     <div class="card-pic">
       <img :src="detailItem.img" alt="">
       <div class="count">

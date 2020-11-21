@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import UserInfo from '../views/UserInfo.vue'
 import Edit from '../views/Edit.vue'
 import Home from '../views/Home.vue'
+import Article from '../views/Article.vue'
 
 Vue.use(VueRouter)
 
@@ -36,6 +37,12 @@ const routes = [
     path: '/edit',
     name: 'edit',
     component: Edit
+  },
+  {
+    path: '/article/:id',
+    props: true,
+    name: 'article',
+    component: Article
   }
 ]
 
