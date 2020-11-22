@@ -35,19 +35,22 @@
     <div class="card-group">
       <cover v-for="item of commendList" :key="item.id" :detailItem="item"></cover>
     </div>
+    <comment-title></comment-title>
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/common/NavBar.vue'
 import Cover from '@/views/Cover.vue'
+import CommentTitle from '@/components/article/CommentTitle.vue'
 
 export default {
   name: 'Article',
   props: ['id'],
   components: {
     NavBar,
-    Cover
+    Cover,
+    CommentTitle
   },
   data () {
     return {

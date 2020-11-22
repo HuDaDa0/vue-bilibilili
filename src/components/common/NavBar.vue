@@ -25,8 +25,10 @@ export default {
     }
   },
   async created () {
-    const res = await this.$http.get(`/user/${localStorage.getItem('id')}`)
-    this.user_img = res[0].user_img
+    if (localStorage.getItem('id')) {
+      const res = await this.$http.get(`/user/${localStorage.getItem('id')}`)
+      this.user_img = res[0].user_img
+    }
   }
 }
 </script>
