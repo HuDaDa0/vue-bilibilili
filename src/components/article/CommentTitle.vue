@@ -2,7 +2,7 @@
   <div class="m-comment-title">
     <div class="title">
       <span>评论</span>
-      <span>(19)</span>
+      <span>({{ commentLen }})</span>
     </div>
     <div class="user-publish">
       <div class="img-box">
@@ -16,6 +16,12 @@
 <script>
 export default {
   name: 'CommentTitle',
+  props: {
+    commentLen: {
+      type: Number,
+      default: 0
+    }
+  },
   data () {
     return {
       user_img: ''

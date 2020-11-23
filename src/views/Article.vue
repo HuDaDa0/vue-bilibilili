@@ -35,7 +35,8 @@
     <div class="card-group">
       <cover v-for="item of commendList" :key="item.id" :detailItem="item"></cover>
     </div>
-    <comment-title></comment-title>
+    <comment-title :commentLen="commentLen"></comment-title>
+    <comment :id="id" @commentLength="computeLength"></comment>
   </div>
 </template>
 
@@ -43,6 +44,7 @@
 import NavBar from '@/components/common/NavBar.vue'
 import Cover from '@/views/Cover.vue'
 import CommentTitle from '@/components/article/CommentTitle.vue'
+import Comment from '@/components/article/Comment.vue'
 
 export default {
   name: 'Article',
@@ -50,12 +52,14 @@ export default {
   components: {
     NavBar,
     Cover,
-    CommentTitle
+    CommentTitle,
+    Comment
   },
   data () {
     return {
       model: {},
-      commendList: []
+      commendList: [],
+      commentLen: 0
     }
   },
   created () {
@@ -70,6 +74,9 @@ export default {
     async getCommendData () {
       const res = await this.$http.get('/commend')
       this.commendList = res
+    },
+    computeLength (value) {
+      this.commentLen = value
     }
   }
 }
