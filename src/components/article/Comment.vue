@@ -1,36 +1,35 @@
 <template>
   <div class="m-comment-list">
-    <div class="level-1">
-      <div class="left-avater">
-        <img src="@/assets/head_img.jpg" alt="">
+    <div v-for="(itemLevel1, index) of commentList" :key="index">
+      <div class="level-1">
+        <div class="left-avater">
+          <img v-if="itemLevel1.userinfo && itemLevel1.userinfo.user_img" :src="itemLevel1.userinfo.user_img" alt="">
+          <img v-else src="@/assets/head_img.jpg" alt="">
+        </div>
+        <div class="right-comment">
+          <p class="comment-title">
+            <span>{{ itemLevel1.userinfo && itemLevel1.userinfo.name }}</span>
+            <span>{{ itemLevel1.comment_date }}</span>
+          </p>
+          <p class="comment-content">{{ itemLevel1.comment_content }}</p>
+        </div>
       </div>
-      <div class="right-comment">
-        <p class="comment-title">
-          <span>hahah</span>
-          <span>4-12</span>
-        </p>
-        <p class="comment-content">正式内容正式内容正式内容正内容正式内容正式内容正内容正式内容正式内容正内容正式内容正式内容正式内容正式内容</p>
-      </div>
-    </div>
-    <div class="level-2">
-      <div class="left-avater">
-        <img src="@/assets/head_img.jpg" alt="">
-      </div>
-      <div class="right-comment">
-        <p class="comment-title">
-          <span>hahah</span>
-          <span>4-12</span>
-        </p>
-        <p class="comment-content">正式内容正式内容正式内容正内容正式内容正式内容正内容正式内容正式内容正内容正式内容正式内容正式内容正式内容</p>
+      <div style="padding-left: 10vw;">
+        <comment-item :commentChild="itemLevel1.child"></comment-item>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import CommentItem from './CommentItem.vue'
+
 export default {
   name: 'Comment',
   props: ['id'],
+  components: {
+    CommentItem
+  },
   data () {
     return {
       commentList: []
@@ -42,6 +41,7 @@ export default {
   methods: {
     async getCommentData () {
       const res = await this.$http.get(`/comment/${this.id}`)
+      console.log(res)
       this.$emit('commentLength', res.length)
       this.commentList = this.changeCommentData(res)
     },
@@ -51,7 +51,7 @@ export default {
         for (var i = 0; i < data.length; i++) {
           if (data[i].parent_id === temp) {
             arr1.push(data[i])
-            data[i].child = fn(data[i].comment_id)
+            data[i].child = fn(data[i].comment_id.toString())
           }
         }
         return arr1
@@ -70,7 +70,7 @@ p {
 .m-comment-list {
   padding: 3vw 3.2vw;
   background-color: #fff;
-  .level-1, .level-2 {
+  .level-1 {
     display: flex;
     border-bottom: 1px solid #eee;
     padding: 2.667vw 0;
