@@ -6,7 +6,7 @@
         <van-list
           v-model="item.loading"
           :finished="item.finished"
-          :immediate-check="false"
+          :immediate-check="true"
           finished-text="没有更多了"
           @load="onLoad"
         >
