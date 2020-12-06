@@ -20,7 +20,7 @@
               <i class="icon-star-full"></i>
               收藏
             </span>
-            <span>
+            <span :class="{active: subscritionActive}" @click="subscriptClick">
               <i class="icon-bubble"></i>
               关注
             </span>
@@ -60,7 +60,8 @@ export default {
       model: {},
       commendList: [],
       commentLen: 0,
-      collectionActive: false
+      collectionActive: false,
+      subscritionActive: false
     }
   },
   created () {
@@ -72,6 +73,9 @@ export default {
     async getArticleData () {
       const res = await this.$http.get(`/article/${this.id}`)
       this.model = res[0]
+      if (this.model.id) {
+        this.subscritionInit()
+      }
     },
     async getCommendData () {
       const res = await this.$http.get('/commend')
@@ -102,6 +106,30 @@ export default {
           }
         })
         this.collectionActive = res.success
+      }
+    },
+    async subscriptClick () {
+      if (localStorage.getItem('token')) {
+        const res = await this.$http.post('/sub_scription/' + localStorage.getItem('id'),
+          {
+            sub_id: this.model.userid
+          })
+        if (res.msg === '关注成功') {
+          this.subscritionActive = true
+        } else {
+          this.subscritionActive = false
+        }
+        this.$msg.fail(res.msg)
+      }
+    },
+    async subscritionInit () {
+      if (localStorage.getItem('token')) {
+        const res = await this.$http.get('/sub_scription/' + localStorage.getItem('id'), {
+          params: {
+            sub_id: this.model.userid
+          }
+        })
+        this.subscritionActive = res.success
       }
     }
   }
