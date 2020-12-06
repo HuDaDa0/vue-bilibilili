@@ -65,6 +65,9 @@ export default {
         }
       })
       item.loading = false
+      res.forEach(element => {
+        element.img = 'https://retail-1253522117.image.myqcloud.com//image/20201206/508812bb265e90b6.jpg'
+      })
       this.category[this.active].list.push(...res)
       if (res.length < item.pagesize) item.finished = true
     },

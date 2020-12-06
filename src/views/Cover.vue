@@ -59,7 +59,7 @@ export default {
     box-sizing: border-box;
     font-size: 3.2vw;
     padding: 1.33333vw 1.6vw;
-    color: red;
+    color: #333333;
   }
 }
 </style>
