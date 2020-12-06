@@ -41,7 +41,6 @@ export default {
   methods: {
     async getCommentData () {
       const res = await this.$http.get(`/comment/${this.id}`)
-      console.log(res)
       this.$emit('commentLength', res.length)
       this.commentList = this.changeCommentData(res)
     },

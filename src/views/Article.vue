@@ -16,7 +16,7 @@
             <span>{{ model.date }}</span>
           </div>
           <div class="operation">
-            <span>
+            <span :class="{active: collectionActive}" @click="collection">
               <i class="icon-star-full"></i>
               收藏
             </span>
@@ -59,12 +59,14 @@ export default {
     return {
       model: {},
       commendList: [],
-      commentLen: 0
+      commentLen: 0,
+      collectionActive: false
     }
   },
   created () {
     this.getArticleData()
     this.getCommendData()
+    this.getCollectionInfo()
   },
   methods: {
     async getArticleData () {
@@ -77,6 +79,30 @@ export default {
     },
     computeLength (value) {
       this.commentLen = value
+    },
+    async collection () {
+      if (localStorage.getItem('token') && localStorage.getItem('id')) {
+        const res = await this.$http.post(`/collection/${localStorage.getItem('id')}`, {
+          article_id: this.$route.params.id
+        })
+        if (res.msg === '收藏成功') {
+          this.$msg.success('关注成功')
+          this.collectionActive = true
+        } else if (res.msg === '取消收藏成功') {
+          this.$msg.success('取消关注')
+          this.collectionActive = false
+        }
+      }
+    },
+    async getCollectionInfo () {
+      if (localStorage.getItem('token') && localStorage.getItem('id')) {
+        const res = await this.$http.get(`/collection/${localStorage.getItem('id')}`, {
+          params: {
+            article_id: this.$route.params.id
+          }
+        })
+        this.collectionActive = res.success
+      }
     }
   }
 }
@@ -141,6 +167,9 @@ p {
     margin-top: 2.13333vw;
     span {
       margin-right: 3.13333vw;
+    }
+    .active {
+      color: #fb7299;
     }
   }
 }
