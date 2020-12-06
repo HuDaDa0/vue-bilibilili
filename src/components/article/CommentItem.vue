@@ -12,10 +12,10 @@
             <span>{{ itemLevel.comment_date }}</span>
           </p>
           <div class="comment-content">
-            <p v-if="!temp">{{ itemLevel.comment_content }} <span style="color:#478ef0">回复</span> </p>
+            <p v-if="!temp">{{ itemLevel.comment_content }} <span style="color: red;">回复</span> </p>
             <p v-else>
               回复
-              <span style="color:#478ef0">{{ itemLevel.parent_user_info.name }}</span>
+              <span style="color:#478ef0;">{{ itemLevel.parent_user_info.name }}</span>
                : {{ itemLevel.comment_content }}
             </p>
           </div>
